@@ -1,0 +1,53 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.float-right {
+    float: right;
+}
+
+.float-left {
+    float: left;
+}
+
+.carousel-inner img {
+    display: block;
+    width: 200px;
+    height: 100px !important;
+    margin: 0 auto;
+}
+
+img {
+    width: 300px; /* You can set the dimensions to whatever you want */
+    height: 200px;
+    object-fit: cover;
+}
+
+.card {
+    border-radius: 45px 0 45px 0;
+}
+
+.card-body {
+    border-radius: 0 0 45px 0;
+}
+
+.cardTextLeftFloating {
+    text-align: left;
+    text-transform: uppercase;
+    padding-left: 20px;
+}

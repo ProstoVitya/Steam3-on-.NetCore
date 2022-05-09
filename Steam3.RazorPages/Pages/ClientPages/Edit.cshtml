@@ -1,0 +1,52 @@
+﻿@page
+@model Steam3.RazorPages.Pages.ClientPages.EditModel
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<form method="post" class="mt-3">
+    <input type="hidden" asp-for="Client.Login" />
+
+    <div class="row justify-content-center m-3">
+        <div class="col col-lg-8">
+            <div class="container">
+                <div class="card-header text-center">
+                    <h2 class="display-3">Создать профиль</h2>
+                </div>
+                <div class="card-body text-center">
+                    <div class="row">
+                        <div class="col col-lg-9">
+
+                            <div class="form-group row">
+                                <label asp-for="Client.Name" class="col col-lg-4 col-form-label text-right">Имя: </label>
+                                <div class="col-12 col-lg-6">
+                                    <input asp-for="Client.Name" class="form-control mr-2" placeholder="@Model.Client.Name" />
+                                    <span asp-validation-for="Client.Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <hr />
+
+                            <div class="form-group row">
+                                <label asp-for="Client.Password" class="col col-lg-4 col-form-label text-right">Пароль: </label>
+                                <div class="col-12 col-lg-6">
+                                    <input asp-for="Client.Password" class="form-control mr-2" placeholder="@Model.Client.Password" />
+                                    <span asp-validation-for="Client.Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <hr />
+
+                            <div class="form-group row">
+                                <label asp-for="Client.CreditCard" class="col col-lg-4 col-form-label text-right">Номер карты: </label>
+                                <div class="col-12 col-lg-6">
+                                    <input asp-for="Client.CreditCard" class="form-control mr-2" placeholder="@Model.Client.CreditCard" />
+                                    <span asp-validation-for="Client.CreditCard" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,79 @@
+﻿@page "{name?}/{handler?}"
+@model Steam3.RazorPages.Pages.GamePages.CreateModel
+@{
+    var photoPath = $"/images/{Model.Game.PhotoPath ?? "noimage.png"}";
+    ViewData["Title"] = "Create";
+}
+<div asp-validation-summary="All" class="text-danger text-center"></div>
+    <form method="post" enctype="multipart/form-data" class="mt-3">
+        <input type="hidden" asp-for="Game.PhotoPath" />
+    <div class="row justify-content-center m-3">
+        <div class="col col-lg-10">
+            <div class="container">
+                <div class="card-header text-center">
+                    <h2 class="display-3">Создать игру</h2>
+                </div>
+                <div class="card-body text-center">
+                    <div class="row">
+                        <div class="col col-lg-8">
+
+                            <div class="form-group row">
+                                <label asp-for="Game.Name" class="col col-lg-4 col-form-label text-right">Название: </label>
+                                <div class="col-12 col-lg-6">
+                                    <input asp-for="Game.Name" class="form-control mr-2" placeholder="@Model.Game.Name" />
+                                    <span asp-valNameation-for="Game.Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <hr />
+
+                            <div class="form-group row">
+                                <label asp-for="Game.CreatedBy" class="col col-lg-4 col-form-label text-right">Автор: </label>
+                                <div class="col-12 col-lg-6">
+                                    <input asp-for="Game.CreatedBy" class="form-control mr-2" placeholder="@Model.Game.CreatedBy" />
+                                    <span asp-valNameation-for="Game.CreatedBy" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <hr />
+                             <div class="form-group row">
+                                <label asp-for="Game.Cost" class="col col-lg-4 col-form-label text-right">Стоимость: </label>
+                                <div class="col-12 col-lg-6">
+                                    <input asp-for="Game.Cost" class="form-control mr-2" placeholder="@Model.Game.Cost" />
+                                    <span asp-valNameation-for="Game.Cost" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="form-group row">
+                                <label asp-for="Game.Genre" class="col col-lg-4 col-form-label text-right">Жанр:</label>
+                                <div class="cocl-12 col-lg-6">
+                                    <select asp-for="Game.Genre" class="custom-select mr-2" asp-items="Html.GetEnumSelectList<Genre>()">
+                                        <option value="">None</option>
+                                    </select>
+                                    <span asp-valNameation-for="Game.Genre" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <hr />
+                        </div>  
+                        <div class="col col-lg-4">
+                            <div>
+                                <img class="img imageThumbnail border border-primary" src="@photoPath" asp-append-version="true" />
+                                <div class="custom-file">
+                                    <input asp-for="Photo" class="custom-file-input form-control" />
+                                        <label class="custom-file-label text-left">Click here</label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="card-footer text-center">
+                                <a asp-page="../Index" class="btn btn-danger">Назад</a>
+                                <button type="submit" class="btn btn-success">Создать</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
