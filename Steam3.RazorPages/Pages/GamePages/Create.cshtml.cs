@@ -50,8 +50,17 @@ namespace Steam3.RazorPages.Pages.GamePages
                 }
                 string saveGameName = Game.Name;
                 Game = _gameRepository.Add(Game);
-                TempData["SuccessMessage"] = saveGameName + Game == null ? " уже существует!" : " успешно добавлена!";
-                return RedirectToPage("../Index");
+                if (Game != null)
+                {
+                    TempData["SuccessMessage"] = saveGameName + " успешно добавлена!";
+                    return RedirectToPage("../Index");
+                }
+                else
+                {
+                    Game = new Game();
+                    TempData["SuccessMessage"] = saveGameName + " уже есть в магазине!";
+                    return Page();
+                }
             }
             return Page();
         }
