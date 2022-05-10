@@ -1,0 +1,48 @@
+﻿@page
+@model Steam3.RazorPages.Pages.ClientPages.LoginModel
+@{
+}
+
+<form method="post" class="mt-3">
+    <div class="row justify-content-center m-3">
+        <div class="col col-lg-8">
+            <div class="container">
+                <div class="card-header text-center">
+                    <h2 class="display-3">Войти</h2>
+                </div>
+                <div class="card-body text-center">
+                    <div class="row">
+                        <div class="col">
+                            
+                            <div class="form-group row">
+                                <label asp-for="Login" class="col col-lg-4 col-form-label text-right">Логин: </label>
+                                <div class="col-12 col-lg-6">
+                                    <input asp-for="Login" class="form-control mr-2" placeholder="@Model.Login" />
+                                    <span asp-validation-for="Login" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <hr />
+
+                            <div class="form-group row">
+                                <label asp-for="Password" class="col col-lg-4 col-form-label text-right">Пароль: </label>
+                                <div class="col-12 col-lg-6">
+                                    <input asp-for="Password" class="form-control mr-2" placeholder="@Model.Password" />
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <hr />
+                             <div class="row">
+                        <div class="col">
+                            <div class="card-footer text-center">
+                                <a asp-page="/ClientPages/Edit" class="btn btn-primary">Зарегистрироваться</a>
+                                <button type="submit" class="btn btn-success">Войти</button>
+                            </div>
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

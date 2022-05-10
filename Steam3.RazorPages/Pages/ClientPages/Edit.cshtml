@@ -1,27 +1,37 @@
 ﻿@page
+@using Steam3.Services
 @model Steam3.RazorPages.Pages.ClientPages.EditModel
 @{
-    ViewData["Title"] = "Profile";
+    var PageTitle = string.IsNullOrWhiteSpace(StaticVariables.Login) ? "Create" : "Edit";
+    var FormTitle = string.IsNullOrWhiteSpace(StaticVariables.Login) ? "Создать" : "Редактировать";
+    ViewData["Title"] = PageTitle;
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success text-center">
+        @TempData["SuccessMessage"]
+    </div>
 }
 
 <form method="post" class="mt-3">
-    <input type="hidden" asp-for="Client.Login" />
+    <input type="hidden" asp-for="Client.CreditCard1" />
 
     <div class="row justify-content-center m-3">
         <div class="col col-lg-8">
             <div class="container">
                 <div class="card-header text-center">
-                    <h2 class="display-3">Создать профиль</h2>
+                    <h2 class="display-3">@FormTitle профиль</h2>
                 </div>
                 <div class="card-body text-center">
                     <div class="row">
-                        <div class="col col-lg-9">
-
+                        <div class="col">
+                            
                             <div class="form-group row">
-                                <label asp-for="Client.Name" class="col col-lg-4 col-form-label text-right">Имя: </label>
+                                <label asp-for="Client.Login" class="col col-lg-4 col-form-label text-right">Логин: </label>
                                 <div class="col-12 col-lg-6">
-                                    <input asp-for="Client.Name" class="form-control mr-2" placeholder="@Model.Client.Name" />
-                                    <span asp-validation-for="Client.Name" class="text-danger"></span>
+                                    <input asp-for="Client.Login" class="form-control mr-2" placeholder="@Model.Client.Login" />
+                                    <span asp-validation-for="Client.Login" class="text-danger"></span>
                                 </div>
                             </div>
                             <hr />
@@ -36,6 +46,15 @@
                             <hr />
 
                             <div class="form-group row">
+                                <label asp-for="Client.Name" class="col col-lg-4 col-form-label text-right">Имя: </label>
+                                <div class="col-12 col-lg-6">
+                                    <input asp-for="Client.Name" class="form-control mr-2" placeholder="@Model.Client.Name" />
+                                    <span asp-validation-for="Client.Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <hr />
+
+                            <div class="form-group row">
                                 <label asp-for="Client.CreditCard" class="col col-lg-4 col-form-label text-right">Номер карты: </label>
                                 <div class="col-12 col-lg-6">
                                     <input asp-for="Client.CreditCard" class="form-control mr-2" placeholder="@Model.Client.CreditCard" />
@@ -43,6 +62,14 @@
                                 </div>
                             </div>
                             <hr />
+                             <div class="row">
+                        <div class="col">
+                            <div class="card-footer text-center">
+                                <a asp-page="../Index" class="btn btn-danger">Назад</a>
+                                <button type="submit" class="btn btn-success">@FormTitle</button>
+                            </div>
+                        </div>
+                    </div>
                         </div>
                     </div>
                 </div>

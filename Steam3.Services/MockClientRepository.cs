@@ -1,9 +1,4 @@
 ﻿using Steam3.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Steam3.Services
 {
@@ -26,7 +21,7 @@ namespace Steam3.Services
         public Client Add(Client newClient)
         {
             var clientWithTheSameLogin = _clientList.Find(c => c.Login.Equals(newClient.Login));
-            if (clientWithTheSameLogin != null)
+            if (clientWithTheSameLogin == null)
                 _clientList.Add(newClient);
             else
                 newClient = null;
@@ -59,16 +54,21 @@ namespace Steam3.Services
                                  || c.Login.Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
         }
 
-        public Client Update(Client updatedClient)
+        public Client Update(string login, Client updatedClient)
         {
-            var client = _clientList.Find(c => c.Login.Equals(updatedClient.Login, StringComparison.OrdinalIgnoreCase));
-            if (client != null)
+            var clientWithTheSameLogin = _clientList.Find(c => c.Login.Equals(updatedClient.Login));
+            if (clientWithTheSameLogin != null)
+                return null;
+
+            var clientToUpdate = _clientList.Find(c => c.Login.Equals(login));
+            if (clientToUpdate != null)
             {
-                client.CreditCard=updatedClient.CreditCard;
-                client.Password=updatedClient.Password;
-                client.Name=updatedClient.Name;
+                clientToUpdate.Login = updatedClient.Login;
+                clientToUpdate.Password = updatedClient.Password;
+                clientToUpdate.CreditCard=updatedClient.CreditCard;
+                clientToUpdate.Name=updatedClient.Name;
             }
-            return client;
+            return clientToUpdate;
         }
     }
 }

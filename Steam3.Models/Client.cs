@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Steam3.Models
 {
@@ -32,6 +27,6 @@ namespace Steam3.Models
 
         public virtual ICollection<AvalibleGames> AvalibleGames { get; set; }
 
-        public virtual CreditCard CreditCard1 { get; set; }
+        public virtual CreditCard? CreditCard1 { get; set; }
     }
 }
