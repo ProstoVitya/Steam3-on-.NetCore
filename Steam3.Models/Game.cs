@@ -23,6 +23,6 @@ namespace Steam3.Models
 
         public string? PhotoPath { get; set; }
 
-        public virtual ICollection<AvalibleGames>? AvalibleGames { get; set; }
+        public virtual ICollection<AvalibleGame>? AvalibleGames { get; set; }
     }
 }

@@ -62,6 +62,17 @@ namespace Steam3.Services
                                      || g.Genre.ToString().Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
         }
 
+        public IEnumerable<Game> SearchByUser(IEnumerable<AvalibleGame> avalibleGames)
+        {
+            var gamesList = new List<Game>();
+            foreach (var avalibleGame in avalibleGames)
+                foreach (var game in _gameList)
+                    if(avalibleGame.GameName == game.Name)
+                        gamesList.Add(game);
+            return gamesList.AsEnumerable();
+                
+        }
+
         public Game Update(Game updatedGame)
         {
             var game = _gameList.Find(g => g.Name.Equals(updatedGame.Name, StringComparison.OrdinalIgnoreCase));

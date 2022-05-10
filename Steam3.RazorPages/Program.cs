@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<IGameRepository, MockGameRepository>();
 builder.Services.AddSingleton<IClientRepository, MockClientRepository>();
+builder.Services.AddSingleton<IAvalibleGameRepository, MockAvalibleGameRepository>();
 
 var app = builder.Build();
 
