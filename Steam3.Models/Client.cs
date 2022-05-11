@@ -8,7 +8,7 @@ namespace Steam3.Models
     {
         public Client()
         {
-            AvalibleGames = new HashSet<AvalibleGame>();
+            AvalibleGames = new HashSet<AvalibleGames>();
         }
 
         [Key]
@@ -25,7 +25,7 @@ namespace Steam3.Models
         [Required]
         public int CreditCard { get; set; }
 
-        public virtual ICollection<AvalibleGame> AvalibleGames { get; set; }
+        public virtual ICollection<AvalibleGames> AvalibleGames { get; set; }
 
         public virtual CreditCard? CreditCard1 { get; set; }
     }

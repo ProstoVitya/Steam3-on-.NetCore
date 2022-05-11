@@ -10,14 +10,7 @@ namespace Steam3.Services
         {
             _clientList = new List<Client>()
             {
-                new Client{ Login = "Login1", Password = "Password1", Name = "Name1", CreditCard = 112,
-                    AvalibleGames =
-                    {
-                        new AvalibleGame { UserLogin = "Login1", GameName = "TestGame" },
-                        new AvalibleGame { UserLogin = "Login1", GameName = "Grido Islando" },
-                        new AvalibleGame { UserLogin = "Login1", GameName = "Elden Ring" }
-                    }
-                },
+                new Client{ Login = "Login1", Password = "Password1", Name = "Name1", CreditCard = 112 },
                 new Client{ Login = "Login2", Password = "Password2", Name = "Name2", CreditCard = 212 },
                 new Client{ Login = "Login3", Password = "Password3", Name = "Name3", CreditCard = 312 },
                 new Client{ Login = "Login4", Password = "Password4", Name = "Name4", CreditCard = 412 },

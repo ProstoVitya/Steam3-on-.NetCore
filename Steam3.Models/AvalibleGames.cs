@@ -3,17 +3,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Steam3.Models
 {
-    [Table("AvalibleGame")]
-    public partial class AvalibleGame
+    [Table("AvalibleGames")]
+    public partial class AvalibleGames
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
-        [ForeignKey("Client")]
+        [Required]
         [StringLength(32)]
         public string UserLogin { get; set; }
 
-        [ForeignKey("Game")]
+        [Required]
         [StringLength(32)]
         public string GameName { get; set; }
 
