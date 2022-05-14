@@ -52,5 +52,11 @@ namespace Steam3.RazorPages.Pages.ClientPages
             }
             return Page();
         }
+
+        public IActionResult OnPostExit()
+        {
+            StaticVariables.Login = "";
+            return RedirectToPage("/ClientPages/Login");
+        }
     }
 }

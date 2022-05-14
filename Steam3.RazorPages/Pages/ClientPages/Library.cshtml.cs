@@ -19,7 +19,7 @@ namespace Steam3.RazorPages.Pages.ClientPages
 
         public IActionResult OnGet()
         {
-            if (StaticVariables.Login == null)
+            if (string.IsNullOrWhiteSpace(StaticVariables.Login))
                 return RedirectToPage("/ClientPages/Login");
             //Games = _gameRepository.GetGames();
             var avalibleGames = _avalibleGamesRepository.GetGames(StaticVariables.Login);
