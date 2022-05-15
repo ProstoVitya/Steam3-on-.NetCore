@@ -1,0 +1,49 @@
+﻿@page
+@model Steam3.RazorPages.Pages.GamePages.StatisticsModel
+@{
+    ViewData["Title"] = "Statistics";
+}
+
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col display-4">
+                Игра
+            </div>
+            <div class="col display-4">
+                <div class="row text-center">
+                    <div class="col">
+                        Продано
+                    </div>
+                    <div class="col">
+                        Заработано
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <hr/>
+    </div>
+    @foreach (var game in Model.gamesStatistic)
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3 class="display-4">@game.Key.Name</h3>
+                    <h3 class="display-6">@game.Key.CreatedBy</h3>
+                </div>
+                <div class="col align-self-center display-6">
+                    <div class="row text-center">
+                        <div class="col">
+                            @game.Value[0]
+                        </div>
+                        <div class="col">
+                            @game.Value[1] руб
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <hr/>
+    }
+</div>
+

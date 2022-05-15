@@ -15,7 +15,6 @@ namespace Steam3.RazorPages.Pages.GamePages
         {
             _gameRepository = gameRepository;
             _webHostEnvironment = webHostEnvironment;
-            //Game = new Game { Name = "0", Cost = 0, Genre = Genre.None, CreatedBy = "0" };
         }
 
         [BindProperty]
@@ -26,8 +25,11 @@ namespace Steam3.RazorPages.Pages.GamePages
 
         public IActionResult OnGet()
         {
-
-            //Game = new Game { Name = "0", Cost = 0, Genre = Genre.None, CreatedBy = "0" };
+            if (!StaticVariables.IsAdmin)
+            {
+                TempData["SuccessMessage"] = "You should me logged as Admin";
+                return RedirectToPage("../Index");
+            }
             Game = new Game();
             if (Game == null)
                 return NotFound();

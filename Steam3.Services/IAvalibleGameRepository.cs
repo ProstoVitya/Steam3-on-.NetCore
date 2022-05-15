@@ -4,7 +4,8 @@ namespace Steam3.Services
 {
     public interface IAvalibleGameRepository
     {
-        IEnumerable<AvalibleGame> GetGames(string clientLogin);
+        IEnumerable<AvalibleGame> GetGamesByUser(string clientLogin);
+        IEnumerable<AvalibleGame> GetGamesByName(string gameName);
         AvalibleGame Add(AvalibleGame avalibleGame);
         
     }

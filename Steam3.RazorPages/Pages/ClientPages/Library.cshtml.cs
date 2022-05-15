@@ -22,7 +22,7 @@ namespace Steam3.RazorPages.Pages.ClientPages
             if (string.IsNullOrWhiteSpace(StaticVariables.Login))
                 return RedirectToPage("/ClientPages/Login");
             //Games = _gameRepository.GetGames();
-            var avalibleGames = _avalibleGamesRepository.GetGames(StaticVariables.Login);
+            var avalibleGames = _avalibleGamesRepository.GetGamesByUser(StaticVariables.Login);
             Games = _gamesRepository.SearchByUser(avalibleGames);
             return Page();
         }

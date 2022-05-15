@@ -28,7 +28,12 @@ namespace Steam3.Services
             return null;
         }
 
-        public IEnumerable<AvalibleGame> GetGames(string clientLogin)
+        public IEnumerable<AvalibleGame> GetGamesByName(string gameName)
+        {
+            return _avalibleGames.Where(g => g.GameName == gameName);
+        }
+
+        public IEnumerable<AvalibleGame> GetGamesByUser(string clientLogin)
         {
             return _avalibleGames.Where(g => g.UserLogin == clientLogin);
         }
