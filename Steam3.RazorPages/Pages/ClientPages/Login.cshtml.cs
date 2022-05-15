@@ -7,12 +7,14 @@ namespace Steam3.RazorPages.Pages.ClientPages
     public class LoginModel : PageModel
     {
         private readonly IClientRepository _clientRepository;
+        private readonly IAdminRepository _adminRepository;
 
-        public LoginModel(IClientRepository clientRepository)
+        public LoginModel(IClientRepository clientRepository, IAdminRepository adminRepository)
         {
             _clientRepository = clientRepository;
+            _adminRepository = adminRepository;
         }
-        
+
         [BindProperty]
         public string Login { get; set; }
         [BindProperty]
@@ -31,6 +33,14 @@ namespace Steam3.RazorPages.Pages.ClientPages
         {
             if (ModelState.IsValid)
             {
+                var admin = _adminRepository.GetAdmin(Login);
+                if (admin != null && admin.Password == Password)
+                {
+                    StaticVariables.Login = admin.Login;
+                    StaticVariables.IsAdmin = true;
+                    return RedirectToPage("../Index");
+                }
+
                 var client = _clientRepository.GetClient(Login);
                 if (client != null && client.Password == Password)
                 {
@@ -38,7 +48,7 @@ namespace Steam3.RazorPages.Pages.ClientPages
                     return RedirectToPage("../Index");
                 }
             }
-                return Page();
+            return Page();
         }
     }
 }

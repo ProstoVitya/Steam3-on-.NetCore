@@ -7,6 +7,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddSingleton<IGameRepository, MockGameRepository>();
 builder.Services.AddSingleton<IClientRepository, MockClientRepository>();
 builder.Services.AddSingleton<IAvalibleGameRepository, MockAvalibleGameRepository>();
+builder.Services.AddSingleton<IAdminRepository, MockAdminRepository>();
+builder.Services.AddSingleton<ICreditCardRepository, MockCreditCardRepository>();
 
 var app = builder.Build();
 

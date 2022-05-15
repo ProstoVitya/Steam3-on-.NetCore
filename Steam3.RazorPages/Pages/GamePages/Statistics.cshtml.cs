@@ -22,11 +22,11 @@ namespace Steam3.RazorPages.Pages.GamePages
 
         public IActionResult OnGet()
         {
-           /* if (!StaticVariables.IsAdmin)
+            if (!StaticVariables.IsAdmin)
             {
                 TempData["SuccessMessage"] = "You should me logged as Admin";
                 return RedirectToPage("../Index");
-            }*/
+            }
             foreach (var game in _gameRepository.GetAllGames())
             {
                 int copies = _avalibleGameRepository.GetGamesByName(game.Name).Count();

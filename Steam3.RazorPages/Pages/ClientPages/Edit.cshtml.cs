@@ -18,11 +18,13 @@ namespace Steam3.RazorPages.Pages.ClientPages
         public Client Client { get; set; }
         public IActionResult OnGet()
         {
-            if(!string.IsNullOrWhiteSpace(StaticVariables.Login))
+            if (!string.IsNullOrWhiteSpace(StaticVariables.Login))
                 Client = _clientRepository.GetClient(StaticVariables.Login);
             else
+            {
                 Client = new Client();
-            Client.CreditCard1 = new CreditCard();
+                Client.CreditCard1 = new CreditCard();
+            }
             if (Client == null)
                 return RedirectToPage("/NotFound");
             return Page();
@@ -56,6 +58,7 @@ namespace Steam3.RazorPages.Pages.ClientPages
         public IActionResult OnPostExit()
         {
             StaticVariables.Login = "";
+            StaticVariables.IsAdmin = false;
             return RedirectToPage("/ClientPages/Login");
         }
     }
