@@ -8,10 +8,12 @@ namespace Steam3.RazorPages.Pages.ClientPages
     public class EditModel : PageModel
     {
         private readonly IClientRepository _clientRepository;
+        private readonly IAvalibleGameRepository _avalibleGame;
 
-        public EditModel(IClientRepository clientRepository)
+        public EditModel(IClientRepository clientRepository, IAvalibleGameRepository avalibleGame)
         {
             _clientRepository = clientRepository;
+            _avalibleGame = avalibleGame;
         }
 
         [BindProperty]
@@ -39,8 +41,17 @@ namespace Steam3.RazorPages.Pages.ClientPages
                 if (!string.IsNullOrWhiteSpace(StaticVariables.Login))
                 {
                     Client = _clientRepository.Update(StaticVariables.Login, Client);
-                    TempData["SuccessMessage"] = Client == null ? $"{savedLogin} клиент с таким логином уже существует!" :
-                                           $"{Client.Name} успешно обновлен!";
+                    if (Client != null)
+                    {
+                        foreach (var game in _avalibleGame.GetGamesByUser(StaticVariables.Login))
+                        {
+                            game.UserLogin = Client.Login;
+                            TempData["SuccessMessage"] = $"{Client.Name} успешно обновлен!";
+                            StaticVariables.Login = Client.Login;
+                        }
+                    }
+                    else
+                        TempData["SuccessMessage"] = $"{savedLogin} клиент с таким логином уже существует!";
                 }
                 else
                 {
