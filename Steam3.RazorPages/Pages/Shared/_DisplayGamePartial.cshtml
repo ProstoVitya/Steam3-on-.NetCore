@@ -1,4 +1,5 @@
-﻿@model Game
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Game
 @{
     var photopath = $"/images/{Model.PhotoPath ?? "noimage.png"}";
     var showButtons = (bool)ViewData["ShowButtons"];
@@ -16,10 +17,11 @@
         @if (showButtons)
         {
            <div class="col align-self-center text-end">
-               <button class="btn btn-lg btn-success" style="width:120px; height:100px">
+               <a asp-controller="GameController" asp-action="Index"
+               class="btn btn-lg btn-success" style="width:120px; height:100px">
                     <div class="col align-content-center">Купить</div>
                     <div class="col align-content-center">@Model.Cost руб</div>
-               </button>
+               </a>
            </div>
         }
     </div>

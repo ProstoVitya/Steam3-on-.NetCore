@@ -25,5 +25,10 @@ namespace Steam3.RazorPages.Pages
         {
             Games = _db.Search(SearchTerm);
         }
+
+        public IActionResult OnPostTest(string gameName)
+        {
+            return RedirectToPage("NotFound");
+        }
     }
 }
