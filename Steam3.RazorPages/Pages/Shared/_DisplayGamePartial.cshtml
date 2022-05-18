@@ -17,11 +17,11 @@
         @if (showButtons)
         {
            <div class="col align-self-center text-end">
-               <a asp-controller="GameController" asp-action="Index"
+               <button asp-page-handler="buy" asp-route-gameName="@Model.Name" asp-route-cost="@Model.Cost"
                class="btn btn-lg btn-success" style="width:120px; height:100px">
                     <div class="col align-content-center">Купить</div>
                     <div class="col align-content-center">@Model.Cost руб</div>
-               </a>
+               </button>
            </div>
         }
     </div>

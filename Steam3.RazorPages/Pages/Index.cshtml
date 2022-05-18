@@ -25,25 +25,7 @@
     @foreach (var item in Model.Games)
     {
         <div class="row">
-            <div class="jumbotron"> 
-                <div class="row">
-                    <div class="col-3">
-                        <img class="m-2" src="/images/noimage.png" asp-append-version="true"/>
-                    </div>
-                    <div class="col">
-                         <h3 class="display-4">@item.Name</h3>
-                         <h3 class="display-6">@item.CreatedBy</h3>
-                    </div>
-                       <div class="col align-self-center text-end">
-                           <button asp-page-handler="test" asp-route-gameName="@item.Name"
-                           class="btn btn-lg btn-success" style="width:120px; height:100px">
-                                <div class="col align-content-center">Купить</div>
-                                <div class="col align-content-center">@item.Cost руб</div>
-                           </button>
-                       </div>
-                </div>
-            </div>
-            <hr />
+            <partial name ="_DisplayGamePartial" model="item" view-data="ViewData"/>
         </div>
     }
     </form>
