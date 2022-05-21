@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Steam3.Models
 {
-    [Table("CreditCard")]
+    [Table("CreditCards")]
     public partial class CreditCard
     {
         public CreditCard()

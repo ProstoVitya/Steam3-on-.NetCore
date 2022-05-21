@@ -1,6 +1,7 @@
 ﻿using Steam3.Models;
+using Steam3.Services.Interfaces;
 
-namespace Steam3.Services
+namespace Steam3.Services.MockRepositories
 {
     public class MockClientRepository : IClientRepository
     {
@@ -36,7 +37,7 @@ namespace Steam3.Services
             {
                 foreach (var avalibleGame in clientToDelete.AvalibleGames)
                 {
-                    
+
                 }
                 _clientList.Remove(clientToDelete);
             }
@@ -71,15 +72,15 @@ namespace Steam3.Services
             var clientToUpdate = _clientList.Find(c => c.Login.Equals(login));
             if (clientToUpdate != null)
             {
-               /* IAvalibleGameRepository avalible = new MockAvalibleGameRepository();
-                foreach (var avalibleGame in avalible.GetGames(clientToUpdate.Login))
-                {
-                    avalibleGame.UserLogin = updatedClient.Login;
-                }*/
+                /* IAvalibleGameRepository avalible = new MockAvalibleGameRepository();
+                 foreach (var avalibleGame in avalible.GetGames(clientToUpdate.Login))
+                 {
+                     avalibleGame.UserLogin = updatedClient.Login;
+                 }*/
                 clientToUpdate.Login = updatedClient.Login;
                 clientToUpdate.Password = updatedClient.Password;
-                clientToUpdate.CreditCard=updatedClient.CreditCard;
-                clientToUpdate.Name=updatedClient.Name;
+                clientToUpdate.CreditCard = updatedClient.CreditCard;
+                clientToUpdate.Name = updatedClient.Name;
             }
             return clientToUpdate;
         }

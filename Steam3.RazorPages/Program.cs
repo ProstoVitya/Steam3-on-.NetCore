@@ -1,9 +1,17 @@
+using Microsoft.EntityFrameworkCore;
 using Steam3.Services;
+using Steam3.Services.Interfaces;
+using Steam3.Services.MockRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContextPool<AppDbContext>(options =>
+{
+    //Find how to get connection string from name
+    options.UseSqlServer("server = (localdb)\\MSSqlLocalDB; database = Steam3DB; Integrated Security = true");
+});
 builder.Services.AddSingleton<IGameRepository, MockGameRepository>();
 builder.Services.AddSingleton<IClientRepository, MockClientRepository>();
 builder.Services.AddSingleton<IAvalibleGameRepository, MockAvalibleGameRepository>();

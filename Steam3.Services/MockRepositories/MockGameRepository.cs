@@ -1,11 +1,12 @@
 ﻿using Steam3.Models;
+using Steam3.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Steam3.Services
+namespace Steam3.Services.MockRepositories
 {
     public class MockGameRepository : IGameRepository
     {
@@ -38,7 +39,7 @@ namespace Steam3.Services
         public Game Delete(string name)
         {
             var gameToDelete = _gameList.Find(g => g.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-            if(gameToDelete != null)
+            if (gameToDelete != null)
                 _gameList.Remove(gameToDelete);
             return gameToDelete;
         }
@@ -67,10 +68,10 @@ namespace Steam3.Services
             var gamesList = new List<Game>();
             foreach (var avalibleGame in avalibleGames)
                 foreach (var game in _gameList)
-                    if(avalibleGame.GameName == game.Name)
+                    if (avalibleGame.GameName == game.Name)
                         gamesList.Add(game);
             return gamesList.AsEnumerable();
-                
+
         }
 
         public Game Update(Game updatedGame)

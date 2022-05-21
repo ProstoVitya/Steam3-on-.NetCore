@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Steam3.Models;
 using Steam3.Services;
+using Steam3.Services.Interfaces;
 
 namespace Steam3.RazorPages.Pages.ClientPages
 {
@@ -9,11 +10,14 @@ namespace Steam3.RazorPages.Pages.ClientPages
     {
         private readonly IClientRepository _clientRepository;
         private readonly IAvalibleGameRepository _avalibleGame;
+        private readonly ICreditCardRepository _creditCardRepository;
 
-        public EditModel(IClientRepository clientRepository, IAvalibleGameRepository avalibleGame)
+        public EditModel(IClientRepository clientRepository, IAvalibleGameRepository avalibleGame,
+            ICreditCardRepository creditCardRepository)
         {
             _clientRepository = clientRepository;
             _avalibleGame = avalibleGame;
+            _creditCardRepository = creditCardRepository;
         }
 
         [BindProperty]
@@ -34,31 +38,18 @@ namespace Steam3.RazorPages.Pages.ClientPages
 
         public IActionResult OnPost()
         {
-            Client.CreditCard1 = new CreditCard { Number = Client.CreditCard, Money = 9999 };
             if (ModelState.IsValid)
             {
-                var savedLogin = Client.Login;
-                if (!string.IsNullOrWhiteSpace(StaticVariables.Login))
+                if (!AddCard())
                 {
-                    Client = _clientRepository.Update(StaticVariables.Login, Client);
-                    if (Client != null)
-                    {
-                        foreach (var game in _avalibleGame.GetGamesByUser(StaticVariables.Login))
-                        {
-                            game.UserLogin = Client.Login;
-                            TempData["SuccessMessage"] = $"{Client.Name} успешно обновлен!";
-                            StaticVariables.Login = Client.Login;
-                        }
-                    }
-                    else
-                        TempData["SuccessMessage"] = $"{savedLogin} клиент с таким логином уже существует!";
+                    TempData["SuccessMessage"] = $"Карта с номером {Client.CreditCard} уже используется";
+                    RedirectToPage("/ClientPages/Index");
                 }
+                if (string.IsNullOrWhiteSpace(StaticVariables.Login))
+                    AddClient();
                 else
-                {
-                    Client = _clientRepository.Add(Client);
-                    TempData["SuccessMessage"] = Client == null ? $"{savedLogin} клиент с таким логином уже существует!" :
-                                             $"{Client.Name} профиль успешно создан!";
-                }
+                    UpdateClient();
+
                 if (Client != null)
                     StaticVariables.Login = Client.Login;
                 return RedirectToPage("../Index");
@@ -71,6 +62,41 @@ namespace Steam3.RazorPages.Pages.ClientPages
             StaticVariables.Login = "";
             StaticVariables.IsAdmin = false;
             return RedirectToPage("/ClientPages/Login");
+        }
+
+        private bool AddCard()
+        {
+            var card = new CreditCard { Number = Client.CreditCard, Money = 9999 };
+            card = _creditCardRepository.Add(card);
+            if (card == null)
+                return false;
+            Client.CreditCard1 = Client.CreditCard1 = card;
+            return true;
+        }
+
+        private void UpdateClient()
+        {
+            var savedLogin = Client.Login;
+            Client = _clientRepository.Update(StaticVariables.Login, Client);
+            if (Client != null)
+            {
+                foreach (var game in _avalibleGame.GetGamesByUser(StaticVariables.Login))
+                {
+                    game.UserLogin = Client.Login;
+                    TempData["SuccessMessage"] = $"{Client.Name} успешно обновлен!";
+                    StaticVariables.Login = Client.Login;
+                }
+            }
+            else
+                TempData["SuccessMessage"] = $"{savedLogin} клиент с таким логином уже существует!";
+        }
+
+        private void AddClient()
+        {
+            var savedLogin = Client.Login;
+            Client = _clientRepository.Add(Client);
+            TempData["SuccessMessage"] = Client == null ? $"{savedLogin} клиент с таким логином уже существует!" :
+                                     $"{Client.Name} профиль успешно создан!";
         }
     }
 }

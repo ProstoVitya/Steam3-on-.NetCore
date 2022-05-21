@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Steam3.Models;
 using Steam3.Services;
+using Steam3.Services.Interfaces;
 
 namespace Steam3.RazorPages.Pages.ClientPages
 {

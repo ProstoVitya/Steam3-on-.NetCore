@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Steam3.Models
 {
-    [Table("Client")]
+    [Table("Clients")]
     public partial class Client
     {
         public Client()
@@ -22,7 +22,7 @@ namespace Steam3.Models
         [MinLength(3), MaxLength(50)]
         public string Name { get; set; }
 
-        [Required]
+        [Required, ForeignKey("CreditCard1")]
         public int CreditCard { get; set; }
 
         public virtual ICollection<AvalibleGame> AvalibleGames { get; set; }

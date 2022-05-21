@@ -1,6 +1,7 @@
 ﻿using Steam3.Models;
+using Steam3.Services.Interfaces;
 
-namespace Steam3.Services
+namespace Steam3.Services.MockRepositories
 {
     public class MockAvalibleGameRepository : IAvalibleGameRepository
     {

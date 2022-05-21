@@ -1,11 +1,12 @@
 ﻿using Steam3.Models;
+using Steam3.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Steam3.Services
+namespace Steam3.Services.MockRepositories
 {
     public class MockAdminRepository : IAdminRepository
     {

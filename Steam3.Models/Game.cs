@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Steam3.Models
 {
-    [Table("Game")]
+    [Table("Games")]
     public partial class Game
     {
         [Key]
