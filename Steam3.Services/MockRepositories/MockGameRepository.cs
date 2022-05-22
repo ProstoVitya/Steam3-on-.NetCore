@@ -1,10 +1,5 @@
 ﻿using Steam3.Models;
 using Steam3.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Steam3.Services.MockRepositories
 {
@@ -63,15 +58,9 @@ namespace Steam3.Services.MockRepositories
                                      || g.Genre.ToString().Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
         }
 
-        public IEnumerable<Game> SearchByUser(IEnumerable<AvalibleGame> avalibleGames)
+        public Game SearchByUser(AvalibleGame avalibleGame)
         {
-            var gamesList = new List<Game>();
-            foreach (var avalibleGame in avalibleGames)
-                foreach (var game in _gameList)
-                    if (avalibleGame.GameName == game.Name)
-                        gamesList.Add(game);
-            return gamesList.AsEnumerable();
-
+            return _gameList.Find(g => g.Name == avalibleGame.GameName);
         }
 
         public Game Update(Game updatedGame)

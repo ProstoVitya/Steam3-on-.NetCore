@@ -8,13 +8,14 @@ namespace Steam3.RazorPages.Pages.ClientPages
 {
     public class LibraryModel : PageModel
     {
-        private readonly IAvalibleGameRepository _avalibleGamesRepository;
-        private readonly IGameRepository _gamesRepository;
+        private readonly IAvalibleGameRepository _avalibleGameRepository;
+        private readonly IGameRepository _gameRepository;
 
         public LibraryModel(IGameRepository gamesRepository, IAvalibleGameRepository avalibleGamesRepository)
         {
-            _avalibleGamesRepository = avalibleGamesRepository;
-            _gamesRepository = gamesRepository;
+            _avalibleGameRepository = avalibleGamesRepository;
+            _gameRepository = gamesRepository;
+            //_gamesRepository.Dispose();
         }
 
 
@@ -22,9 +23,11 @@ namespace Steam3.RazorPages.Pages.ClientPages
         {
             if (string.IsNullOrWhiteSpace(StaticVariables.Login))
                 return RedirectToPage("/ClientPages/Login");
-            //Games = _gameRepository.GetGames();
-            var avalibleGames = _avalibleGamesRepository.GetGamesByUser(StaticVariables.Login);
-            Games = _gamesRepository.SearchByUser(avalibleGames);
+            var avalibleGames = _avalibleGameRepository.GetGamesByUser(StaticVariables.Login).ToList();
+            var gamesList = new List<Game>();
+            foreach (var avalibleGame in avalibleGames)
+                gamesList.Add(_gameRepository.GetGame(avalibleGame.GameName));
+            Games = gamesList.AsEnumerable();
             return Page();
         }
 

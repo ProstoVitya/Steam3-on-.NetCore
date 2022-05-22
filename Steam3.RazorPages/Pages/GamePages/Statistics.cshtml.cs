@@ -28,7 +28,7 @@ namespace Steam3.RazorPages.Pages.GamePages
                 TempData["SuccessMessage"] = "You should me logged as Admin";
                 return RedirectToPage("../Index");
             }
-            foreach (var game in _gameRepository.GetAllGames())
+            foreach (var game in _gameRepository.GetAllGames().ToList())
             {
                 int copies = _avalibleGameRepository.GetGamesByName(game.Name).Count();
                 gamesStatistic.Add(game, new int[] { copies, copies * game.Cost });

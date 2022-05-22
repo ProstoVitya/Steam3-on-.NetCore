@@ -6,7 +6,7 @@ namespace Steam3.Services.Interfaces
     {
         IEnumerable<Game> GetAllGames();
         IEnumerable<Game> Search(string searchTerm);
-        IEnumerable<Game> SearchByUser(IEnumerable<AvalibleGame> avalibleGames);
+        Game SearchByUser(AvalibleGame avalibleGame);
         Game GetGame(string name);
         Game Update(Game updatedGame);
         Game Add(Game newGame);

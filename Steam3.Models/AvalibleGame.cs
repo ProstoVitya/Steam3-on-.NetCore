@@ -6,7 +6,6 @@ namespace Steam3.Models
     [Table("AvalibleGames")]
     public partial class AvalibleGame
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [ForeignKey("Client")]
