@@ -38,22 +38,9 @@ namespace Steam3.Services.SqlRepositories
             return clientToDelete;
         }
 
-        public IEnumerable<Client> GetAllGames()
-        {
-            return _context.Clients;
-        }
-
         public Client GetClient(string login)
         {
             return _context.Clients.Find(login);
-        }
-
-        public IEnumerable<Client> Search(string searchTerm)
-        {
-            if(string.IsNullOrEmpty(searchTerm))
-                return _context.Clients;
-            return _context.Clients.Where(c => c.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)
-                                        || c.Login.Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
         }
 
         public Client Update(string login, Client updatedClient)
@@ -61,11 +48,6 @@ namespace Steam3.Services.SqlRepositories
             var clientToUpdate = _context.Clients.Find(login);
             if (clientToUpdate != null)
             {
-                foreach (var avalibleGame in _context.AvalibleGames.Where(g => g.UserLogin.Equals(login)))
-                {
-                    avalibleGame.UserLogin = updatedClient.Login;
-                }
-                clientToUpdate.Login = updatedClient.Login;
                 clientToUpdate.Password = updatedClient.Password;
                 clientToUpdate.Name = updatedClient.Name;
                 clientToUpdate.CreditCard = updatedClient.CreditCard;

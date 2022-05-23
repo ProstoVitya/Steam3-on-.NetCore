@@ -57,11 +57,6 @@ namespace Steam3.Services.SqlRepositories
             );
         }
 
-        public Game SearchByUser(AvalibleGame avalibleGame)
-        {
-            return _context.Games.Find(avalibleGame.GameName);
-        }
-
         public Game Update(Game updatedGame)
         {
             var game = _context.Games.Find(updatedGame.Name);

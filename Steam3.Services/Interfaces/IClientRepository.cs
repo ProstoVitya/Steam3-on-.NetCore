@@ -4,8 +4,6 @@ namespace Steam3.Services.Interfaces
 {
     public interface IClientRepository
     {
-        IEnumerable<Client> GetAllGames();
-        IEnumerable<Client> Search(string searchTerm);
         Client GetClient(string login);
         Client Update(string login, Client updatedClient);
         Client Add(Client newClient);

@@ -26,23 +26,26 @@
                 <div class="card-body text-center">
                     <div class="row">
                         <div class="col">
-                            
-                            <div class="form-group row">
-                                <label asp-for="Client.Login" class="col col-lg-4 col-form-label text-right">Логин: </label>
-                                <div class="col-12 col-lg-6">
-                                    <input asp-for="Client.Login" class="form-control mr-2" placeholder="@Model.Client.Login" />
-                                    <span asp-validation-for="Client.Login" class="text-danger"></span>
+                            @if (!StaticVariables.IsAdmin)
+                            {
+                                @if (PageTitle.Equals("Create"))
+                                {
+                                    <div class="form-group row">
+                                    <label asp-for="Client.Login" class="col col-lg-4 col-form-label text-right">Логин: </label>
+                                        <div class="col-12 col-lg-6">
+                                            <input asp-for="Client.Login" class="form-control mr-2" placeholder="@Model.Client.Login" />
+                                            <span asp-validation-for="Client.Login" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                }
+                                <div class="form-group row">
+                                    <label asp-for="Client.Password" class="col col-lg-4 col-form-label text-right">Пароль: </label>
+                                    <div class="col-12 col-lg-6">
+                                        <input asp-for="Client.Password" class="form-control mr-2" placeholder="@Model.Client.Password" />
+                                        <span asp-validation-for="Client.Password" class="text-danger"></span>
+                                    </div>
                                 </div>
-                            </div>
-                            <hr />
-
-                            <div class="form-group row">
-                                <label asp-for="Client.Password" class="col col-lg-4 col-form-label text-right">Пароль: </label>
-                                <div class="col-12 col-lg-6">
-                                    <input asp-for="Client.Password" class="form-control mr-2" placeholder="@Model.Client.Password" />
-                                    <span asp-validation-for="Client.Password" class="text-danger"></span>
-                                </div>
-                            </div>
                             <hr />
 
                             <div class="form-group row">
@@ -62,11 +65,18 @@
                                 </div>
                             </div>
                             <hr />
+                            }
                              <div class="row">
                         <div class="col">
                             <div class="card-footer text-center">
-                                <button asp-page-handler="exit" class="btn btn-danger">Выход</button>
-                                <button type="submit" class="btn btn-success">@FormTitle</button>
+                                @if (PageTitle.Equals("Edit"))
+                                {
+                                    <button asp-page-handler="exit" class="btn btn-danger">Выход</button>
+                                }
+                                 @if (!StaticVariables.IsAdmin)
+                                {
+                                    <button type="submit" class="btn btn-success">@FormTitle</button>
+                                }
                             </div>
                         </div>
                     </div>

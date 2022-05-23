@@ -24,6 +24,8 @@ namespace Steam3.RazorPages.Pages.ClientPages
         public Client Client { get; set; }
         public IActionResult OnGet()
         {
+            if (StaticVariables.IsAdmin)
+                return Page();
             if (!string.IsNullOrWhiteSpace(StaticVariables.Login))
                 Client = _clientRepository.GetClient(StaticVariables.Login);
             else
@@ -38,7 +40,10 @@ namespace Steam3.RazorPages.Pages.ClientPages
 
         public IActionResult OnPost()
         {
-            if (ModelState.IsValid)
+            if(!string.IsNullOrWhiteSpace(StaticVariables.Login))
+                Client.Login = StaticVariables.Login;
+            ModelState.ClearValidationState(nameof(Client));
+            if (TryValidateModel(Client, nameof(Client)))
             {
                 if (!AddCard())
                 {
