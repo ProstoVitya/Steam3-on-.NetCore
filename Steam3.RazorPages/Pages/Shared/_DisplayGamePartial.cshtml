@@ -17,8 +17,9 @@
         @if (showButtons)
         {
            <div class="col align-self-center text-end">
-               <button asp-page-handler="buy" asp-route-gameName="@Model.Name" asp-route-cost="@Model.Cost"
-               class="btn btn-lg btn-success" style="width:120px; height:100px">
+               <button class="btn btn-lg btn-success" style="width:120px; height:100px"
+               asp-page-handler="buy" asp-route-gameName="@Model.Name" asp-route-cost="@Model.Cost"
+               onclick="return confirm('Вы уверены что хотите купить @Model.Name?')">
                     <div class="col align-content-center">Купить</div>
                     <div class="col align-content-center">@Model.Cost руб</div>
                </button>

@@ -15,9 +15,11 @@ namespace Steam3.RazorPages.Pages.ClientPages
         {
             _avalibleGameRepository = avalibleGamesRepository;
             _gameRepository = gamesRepository;
-            //_gamesRepository.Dispose();
         }
 
+        [BindProperty(SupportsGet = true)]
+        public string SearchTerm { get; set; }
+        public IEnumerable<Game> Games { get; set; }
 
         public IActionResult OnGet()
         {
@@ -28,12 +30,17 @@ namespace Steam3.RazorPages.Pages.ClientPages
             foreach (var avalibleGame in avalibleGames)
                 gamesList.Add(_gameRepository.GetGame(avalibleGame.GameName));
             Games = gamesList.AsEnumerable();
+            if (!string.IsNullOrEmpty(SearchTerm))
+                Search();
             return Page();
         }
 
-        public IEnumerable<Game> Games { get; set; }
-
-        [BindProperty(SupportsGet = true)]
-        public string SearchTerm { get; set; }
+        private void Search()
+        {
+            Games = Games.Where(g => g.Name.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase)
+                                 || g.CreatedBy.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase)
+                                 || g.Genre.ToString().Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+                         .OrderBy(g => g.Name);
+        }
     }
 }

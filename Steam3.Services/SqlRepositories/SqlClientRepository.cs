@@ -50,7 +50,13 @@ namespace Steam3.Services.SqlRepositories
             {
                 clientToUpdate.Password = updatedClient.Password;
                 clientToUpdate.Name = updatedClient.Name;
+                _context.CreditCards.Remove(_context.CreditCards.Find(clientToUpdate.CreditCard));
                 clientToUpdate.CreditCard = updatedClient.CreditCard;
+                _context.CreditCards.Add(new CreditCard
+                {
+                    Number = clientToUpdate.CreditCard,
+                    Money = 9999
+                });
                 _context.SaveChanges();
                 return updatedClient;
             }
