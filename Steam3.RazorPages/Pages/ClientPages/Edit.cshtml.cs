@@ -69,6 +69,13 @@ namespace Steam3.RazorPages.Pages.ClientPages
             return RedirectToPage("/ClientPages/Login");
         }
 
+        public IActionResult OnPostDelete()
+        {
+            _clientRepository.Delete(StaticVariables.Login);
+            StaticVariables.Login = "";
+            return RedirectToPage("../Index");
+        }
+
         private bool AddCard()
         {
             var card = new CreditCard { Number = Client.CreditCard, Money = 9999 };

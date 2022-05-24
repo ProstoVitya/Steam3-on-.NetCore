@@ -71,6 +71,10 @@
                             <div class="card-footer text-center">
                                 @if (PageTitle.Equals("Edit"))
                                 {
+                                    @if (!StaticVariables.IsAdmin)
+                                    {
+                                        <button asp-page-handler="delete" class="btn btn-danger">Удалить профиль</button>
+                                    }
                                     <button asp-page-handler="exit" class="btn btn-danger">Выход</button>
                                 }
                                  @if (!StaticVariables.IsAdmin)
