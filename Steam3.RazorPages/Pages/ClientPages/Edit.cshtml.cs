@@ -45,11 +45,7 @@ namespace Steam3.RazorPages.Pages.ClientPages
             ModelState.ClearValidationState(nameof(Client));
             if (TryValidateModel(Client, nameof(Client)))
             {
-                if (!AddCard())
-                {
-                    TempData["SuccessMessage"] = $"Карта с номером {Client.CreditCard} уже используется";
-                    RedirectToPage("/ClientPages/Index");
-                }
+                AddCard();
                 if (string.IsNullOrWhiteSpace(StaticVariables.Login))
                     AddClient();
                 else
@@ -76,31 +72,22 @@ namespace Steam3.RazorPages.Pages.ClientPages
             return RedirectToPage("../Index");
         }
 
-        private bool AddCard()
+        private void AddCard()
         {
             var card = new CreditCard { Number = Client.CreditCard, Money = 9999 };
-            card = _creditCardRepository.Add(card);
-            if (card == null)
-                return false;
             Client.CreditCard1 = Client.CreditCard1 = card;
-            return true;
         }
 
         private void UpdateClient()
         {
-            var savedLogin = Client.Login;
             Client = _clientRepository.Update(StaticVariables.Login, Client);
             if (Client != null)
             {
-                foreach (var game in _avalibleGame.GetGamesByUser(StaticVariables.Login))
-                {
-                    game.UserLogin = Client.Login;
-                    TempData["SuccessMessage"] = $"{Client.Name} успешно обновлен!";
-                    StaticVariables.Login = Client.Login;
-                }
+                TempData["SuccessMessage"] = $"{Client.Name} успешно обновлен!";
+                StaticVariables.Login = Client.Login;
             }
             else
-                TempData["SuccessMessage"] = $"{savedLogin} клиент с таким логином уже существует!";
+                TempData["SuccessMessage"] = $"Неверные данные!";
         }
 
         private void AddClient()

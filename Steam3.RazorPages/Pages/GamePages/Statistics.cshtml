@@ -5,24 +5,29 @@
 }
 
 <div>
-    <div class="container">
+    <form method="get">
+        <div class="container">
         <div class="row">
             <div class="col display-4">
-                Игра
+                <a class="nav-link text-dark" asp-page-handler="OnGet" asp-route-sortBy="@SortBy.Name">Игра</a> 
+
             </div>
             <div class="col display-4">
                 <div class="row text-center">
                     <div class="col">
-                        Продано
+                        <a class="nav-link text-dark" asp-page-handler="OnGet" asp-route-sortBy="@SortBy.Count">Продано</a> 
                     </div>
                     <div class="col">
-                        Заработано
+                        <a class="nav-link text-dark" asp-page-handler="OnGet" asp-route-sortBy="@SortBy.Earnings">Заработано</a>
+                        
                     </div>
                 </div>
             </div> 
         </div>
         <hr/>
     </div>
+    </form>
+    
     @foreach (var game in Model.gamesStatistic)
     {
         <div class="container">

@@ -46,17 +46,18 @@ namespace Steam3.Services.SqlRepositories
         public Client Update(string login, Client updatedClient)
         {
             var clientToUpdate = _context.Clients.Find(login);
-            if (clientToUpdate != null)
+            if (clientToUpdate != null &&
+                _context.CreditCards.Find(updatedClient.CreditCard) == null)
             {
                 clientToUpdate.Password = updatedClient.Password;
                 clientToUpdate.Name = updatedClient.Name;
+
                 _context.CreditCards.Remove(_context.CreditCards.Find(clientToUpdate.CreditCard));
                 clientToUpdate.CreditCard = updatedClient.CreditCard;
-                _context.CreditCards.Add(new CreditCard
-                {
-                    Number = clientToUpdate.CreditCard,
-                    Money = 9999
-                });
+                var creditCard = new CreditCard{Number = clientToUpdate.CreditCard,Money = 9999};
+                _context.CreditCards.Add(creditCard);
+                clientToUpdate.CreditCard1 = creditCard;
+                _context.Clients.Update(clientToUpdate);
                 _context.SaveChanges();
                 return updatedClient;
             }
